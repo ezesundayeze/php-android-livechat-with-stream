@@ -1,0 +1,7 @@
+{
+    "require": {
+        "get-stream/stream-chat": "^1.1",
+        "prodigyview/prodigyview": "^0.9.91",
+        "vlucas/phpdotenv": "^4.1"
+    }
+}
