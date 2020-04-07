@@ -4,7 +4,7 @@
 You need to have 
 - Composer
 - PHP
-and a [Stream Account](getstream.io)
+and a [Stream Account](https://getstream.io)
 
 ### Set up
 Clone the repo and run 
