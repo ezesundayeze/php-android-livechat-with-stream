@@ -12,7 +12,7 @@ import {
 
 const chatClient = new StreamChat(API_KEY);
 
-class ChannelScreen extends React.Component {
+class AdminChannelScreen extends React.Component {
 
 state = {
 	id:'',
@@ -49,7 +49,7 @@ getUserId = async ()=>{
 			this.state.token
 		)
 
-		this.setState({channel:chatClient.channel("messaging", "", {members:["client", "admin"]})})
+		this.setState({channel:chatClient.channel("messaging", "", {members:["client", 'admin']})})
 		await this.state.channel.watch()
 	}
 
@@ -69,8 +69,10 @@ getUserId = async ()=>{
   }
 }
 
+
+
 export default class App extends React.Component {
   render() {
-    return <ChannelScreen />;
+    return <AdminChannelScreen />;
   }
 }
