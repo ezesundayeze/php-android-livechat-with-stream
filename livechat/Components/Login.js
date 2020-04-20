@@ -1,21 +1,12 @@
-import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, TouchableHighlight, Alert, AsyncStorage} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, TouchableHighlight, AsyncStorage} from 'react-native';
 import axios from 'axios';
-import localStorage from 'react-native-sync-localstorage'
-
-
 
 const Login = ({ navigation }) =>{
-    const [loading, setLoading] = useState(false)
-    const [username, setUserName] = useState("")
-    const [errorMessage, setErrorMessage] = useState('')
+    const [username, setUserName] = useState("");
 
     const handleSubmit = async ()=>{
-        setErrorMessage("")
-        await setLoading(true);
 
-        
-    
         axios.post("http://172.20.10.2:8000/token", {
           headers: {
             'Content-Type': 'application/json',
@@ -25,24 +16,21 @@ const Login = ({ navigation }) =>{
           username
     
         }).then((response)=>{
-              AsyncStorage.multiSet([['token', response.data.token],[ 'user_id', username] ]).then(
-                  
-                ()=>{
+              AsyncStorage.multiSet([['token', response.data.token],[ 'user_id', username] ]).
+              then(
+                  ()=>{
                   if(username !== 'admin'){
-                    navigation.push('chat')
+                    navigation.push('chat');
                   }else{
-                    navigation.push('admin')
+                    navigation.push('admin');
 
                   }
                 }
-
-                  )
-          }).catch((err)=>{
-            setLoading(false);
-            setErrorMessage("Your registration wasn't successful, please, try again.")
-            console.log("error", JSON.stringify(err))
+          )
+          }).
+          catch((err)=>{
+            console.log(err);
         })
-        setLoading(false);
     }
 
     const handleUsername = text => {
@@ -50,19 +38,20 @@ const Login = ({ navigation }) =>{
       };
 
 
-        return (
+      return (
           <View style={styles.container}>
             <View style={styles.inputContainer}>
                 <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
                 <TextInput style={styles.inputs}
-                    placeholder="Username"
-                    underlineColorAndroid='transparent'
-                    onChangeText={(text) => handleUsername(text)}/>
+                  placeholder="Username"
+                  underlineColorAndroid='transparent'
+                  onChangeText={(text) => handleUsername(text)}
+                />
               </View>
-                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>handleSubmit()}>
-                        <Text style={styles.loginText}>Login</Text>
-                    </TouchableHighlight>
-            </View>
+                  <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>handleSubmit()}>
+                      <Text style={styles.loginText}>Login</Text>
+                  </TouchableHighlight>
+          </View>
         )
 
   
